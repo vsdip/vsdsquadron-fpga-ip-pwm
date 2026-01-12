@@ -134,6 +134,7 @@ Map the `pwm_out` port to a physical pin in your `.pcf` file.
 
 ### Device Utilisation
 <img width="575" height="363" alt="device_utilisation" src="https://github.com/user-attachments/assets/9c9e5900-0602-4890-b7a4-d20bc34ba2d3" />
+
 ___
 
 ## 6. Software Programming Model

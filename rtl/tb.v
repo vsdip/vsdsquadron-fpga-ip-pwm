@@ -2,13 +2,11 @@
 module testbench;
     reg RESET;
     reg RXD;
-    wire [3:0] LEDS;
     wire TXD;
     wire PWM;    
 
     SOC uut (
-        .RESET(RESET),
-        .LEDS(LEDS), 
+        .RESET(RESET), 
         .RXD(RXD),
         .TXD(TXD),
         .PWM(PWM)

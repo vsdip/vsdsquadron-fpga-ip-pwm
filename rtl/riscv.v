@@ -313,7 +313,6 @@ endmodule
 module SOC (
  // input           CLK,   // system clock 
     input           RESET, // reset button
-    inout     [3:0] LEDS, 
     input           RXD,   // UART receive
     output          TXD,   // UART transmit
     output          PWM    // PWM output
@@ -358,11 +357,9 @@ module SOC (
 
     // --- ADDRESS DECODING ---
     // ** BLOCK DECODING LOGIC **
-    // GPIO Block: 0x...00 to 0x...0F (Offset 0 in IO page)
     // UART Block: 0x...10 to 0x...1F (Offset 1 in IO page)
     // PWM  Block: 0x...20 to 0x...2F (Offset 2 in IO page)
 
-    wire gpio_sel = isIO & (mem_addr[7:4] == 4'h0); // Select GPIO block
     wire uart_sel = isIO & (mem_addr[7:4] == 4'h1); // Select UART block
     wire pwm_sel  = isIO & (mem_addr[7:4] == 4'h2); // Select PWM  block
 
@@ -407,19 +404,6 @@ module SOC (
     );
 
 
-    // --- Multi-Register GPIO IP ---
-    gpio_control_ip MyGPIO ( 
-        .clk(clk),
-        .resetn(resetn),
-        .i_sel(gpio_sel),
-        .i_we(mem_wstrb),       
-        .i_addr(mem_addr[3:0]), 
-        .i_wdata(mem_wdata),
-        .o_rdata(gpio_rdata),
-        .gpio_pins(LEDS)    
-    );
-
-
     // --- PWM IP ---
     pwm_ip MyPWM (
         .clk(clk),
@@ -435,7 +419,6 @@ module SOC (
 
     // READ DATA MUX 
     wire [31:0] IO_rdata = (uart_sel && (mem_addr[3:0] == 4'h4)) ? { 22'b0, !uart_ready, 9'b0} :
-                           gpio_sel ? gpio_rdata : 
                            pwm_sel  ? pwm_rdata  : 32'b0;
     
     assign mem_rdata = isRAM ? RAM_rdata : IO_rdata ;

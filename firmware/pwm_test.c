@@ -1,5 +1,5 @@
-#include "../../../basicRISCV/software/common/io.h"
-#include "../../../basicRISCV/software/common/uart.h" // Custom UART Header File
+#include "io.h"
+#include "uart.h" // Custom UART Header File
 
 // Delay function
 void delay(int cycles) {

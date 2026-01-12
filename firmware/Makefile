@@ -3,7 +3,7 @@ ABI = ilp32
 RVASFLAGS= -march=$(ARCH) -mabi=$(ABI) 
 RVCFLAGS= $(RVINCS) -fno-pic -march=$(ARCH) -mabi=$(ABI) \
          -fno-stack-protector -w -Wl,--no-relax
-RVINCS=-I ./LIBFEMTOGL -I ./LIBFEMTORV32 -I ./LIBFEMTOC
+RVINCS=-I ./LIBFEMTORV32 -I ./LIBFEMTOC
 RAM_SIZE=6144
 
 LIBOBJECTS=putchar.o wait.o print.o memcpy.o errno.o perf.o

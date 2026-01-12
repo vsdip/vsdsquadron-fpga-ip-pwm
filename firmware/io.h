@@ -3,11 +3,6 @@
 // IO Base Address
 #define IO_BASE      0x400000
 
-// GPIO Offsets
-#define GPIO_DATA    0x00
-#define GPIO_DIR     0x04
-#define GPIO_READ    0x08
-
 // UART Offsets 
 #define UART_DATA    0x10
 #define UART_CNTL    0x14

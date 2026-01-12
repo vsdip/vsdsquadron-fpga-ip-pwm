@@ -12,7 +12,7 @@ You should use this IP when you need precise, hardware-timed signals without bur
 * **LED Dimming:** Varying the brightness of an LED by changing the duty cycle (e.g., "Breathing" LED effect).
 * **Motor Control:** Controlling the speed of a DC motor.
 * **Audio Generation:** Generating simple square-wave tones (beeps) by adjusting the period (frequency).
-
+___
 
 ## 2. Block Diagram
 ```text
@@ -43,7 +43,7 @@ o_rdata|      |   (Selects Source)  |   |   |  (Applies Enable & Polarity) |   |
        |                                                                           |
        +---------------------------------------------------------------------------+
 ```
-
+___
 
 ## 3. Register Map
 
@@ -78,7 +78,7 @@ Defines the pulse width.
 Read-only status for debugging.
 * **Bit 0:** Run Status (Mirror of `PWM_CTRL` Enable bit).
 * **Bits [31:16]:** Current internal 16-bit counter value (Lower bits of 32-bit counter).
-
+___
 
 ## 4. Feature Summary
 
@@ -97,7 +97,7 @@ Read-only status for debugging.
 * **Single Channel:** This IP controls only one physical output pin.
 * **Counter Reset on Update:** If the `PERIOD` is updated to a value smaller than the current internal counter, the counter resets to 0 immediately to prevent undefined behavior.
 * **No Prescaler:** The counter always runs at the system clock rate, so very low frequencies may require large period values.
-
+___
 
 ## 5. Integration Guide
 
@@ -133,7 +133,8 @@ Map the `pwm_out` port to a physical pin in your `.pcf` file.
 	```
 
 ### Device Utilisation
-
+<img width="575" height="363" alt="device_utilisation" src="https://github.com/user-attachments/assets/9c9e5900-0602-4890-b7a4-d20bc34ba2d3" />
+___
 
 ## 6. Software Programming Model
 
@@ -155,7 +156,7 @@ To generate a clean signal without glitches, follow this sequence:
 ### Polling vs. Status Checking
 * **Status Checking:** Software can read the `PWM_STATUS` register to verify if the IP is currently enabled (Bit 0) or to read the live counter value (Bits [15:0]) for debugging.
 * **No Polling Required:** Once enabled, the PWM IP runs autonomously. The software does not need to poll any register to keep the signal generating; it only needs to write new values if it wants to change the frequency or duty cycle dynamically.
-
+___
 
 ## 7. Example Usage : Breathing LED
 Here, we'll integrate the IP within a RISC-V SoC to give a "breathing effect" to an LED by controlling its brightness through PWM signal.
@@ -257,14 +258,15 @@ void main() {
     ```
 
     **Expected Output:**
-   	<img width="974" height="360" alt="pwm_output" src="https://github.com/user-attachments/assets/77096d91-a8d0-4cf7-b1ea-2b39b5571999" />
+   	<img width="974" height="360" alt="pwm_output" src="https://github.com/user-attachments/assets/6e31e79f-ef17-448b-9a36-2f3dba00741b" />
+
 
 4. Observe the waveform.
    ```bash
    gtkwave test.vcd
    ```
 
-   <img width="1582" height="191" alt="pwm_waveform" src="https://github.com/user-attachments/assets/8fafaa1e-b362-4f69-8972-17335cce0dfc" />
+	<img width="1582" height="191" alt="pwm_waveform" src="https://github.com/user-attachments/assets/1d3be862-1740-4f86-a75b-0ec53dd11b66" />
 
 
 ### Hardware Validation
@@ -281,10 +283,9 @@ void main() {
    make terminal
    ```
 
+	<video src="[user-images.githubusercontent.com](https://github.com/user-attachments/assets/b0f1e7a2-ad49-4e74-a0b0-3cb12110af3a)" controls width="500">![Demo video](https://github.com/user-attachments/assets/b0f1e7a2-ad49-4e74-a0b0-3cb12110af3a)</video>
 
 
-	<video src="[user-images.githubusercontent.com](https://github.com/user-attachments/assets/f9b64f7a-3eaf-49b2-b733-5c531b5b4225)" controls width="500">![Demo video](https://github.com/user-attachments/assets/f9b64f7a-3eaf-49b2-b733-5c531b5b4225)</video>
-
-https://github.com/user-attachments/assets/f9b64f7a-3eaf-49b2-b733-5c531b5b4225
+https://github.com/user-attachments/assets/b0f1e7a2-ad49-4e74-a0b0-3cb12110af3a
 
 

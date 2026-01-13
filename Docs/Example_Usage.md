@@ -145,7 +145,7 @@ The PWM IP operates as a hardware accelerator. Instead of the CPU manually toggl
 
 ### Typical Initialization Sequence
 To generate a clean signal without glitches, follow this sequence:
-1. **Define Pointers:** Define pointers for base address and individual register address provided in [Register Map Documentation](Docs/Register_Map.md). For example, `#define IO_BASE  0x400000`.
+1. **Define Pointers:** Define pointers for base address and individual register address provided in [Register Map Documentation](Register_Map.md). For example, `#define IO_BASE  0x400000`.
 2. **Disable IP:** Write `0x0` to `PWM_CTRL` to ensure the block is stopped during setup.
 3. **Set Period:** Write the desired total cycle count to `PWM_PERIOD` (e.g., `1000` for a 1kHz signal on a 1MHz clock).
 4. **Set Duty Cycle:** Write the active time count to `PWM_DUTY` (e.g., `500` for 50% duty cycle).

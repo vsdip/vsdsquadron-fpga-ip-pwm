@@ -121,5 +121,5 @@ You can see what output to expect in the given video -
 
 https://github.com/user-attachments/assets/b0f1e7a2-ad49-4e74-a0b0-3cb12110af3a
 
-To integrate this IP in your SoC or write a custom software program to utilize the IP, you can refer to [Integration Guide](Docs/Integration_Guide.md) and [Example Usage](Example_Usage.md) respectively.
+To integrate this IP in your SoC or write a custom software program to utilize the IP, you can refer to [Integration Guide](Docs/Integration_Guide.md) and [Example Usage](Docs/Example_Usage.md) respectively.
 

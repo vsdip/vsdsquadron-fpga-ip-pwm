@@ -63,7 +63,7 @@ ___
 
 **Base Address:** User Configurable (Default in this repo: `0x400000`)
 
-| Offset | Name       | Type | Default Value | Description                          |
+| Offset | Name       | Type | Reset Value   | Description                          |
 | :----: | :--------: | :--: | :-----------: | :------------------------------------|
 | `0x20` | PWM_CTRL   | R/W  | `0x00`        | Control Register (Enable & Polarity) |
 | `0x24` | PWM_PERIOD | R/W  | `0x01`        | Period Register (Total Ticks)        |

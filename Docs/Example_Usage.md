@@ -9,6 +9,10 @@ Make a header file `io.h` for defining the addresses to interact with the IP.
 
 #define IO_BASE      0x400000 // IO Base Address
 
+// UART Offsets 
+#define UART_DATA    0x10  // Data Register for UART communication
+#define UART_CNTL    0x14  // Control Register for UART communication
+
 // PWM  Offsets
 #define PWM_CTRL     0x20
 #define PWM_PERIOD   0x24

@@ -38,19 +38,21 @@ module pwm_ip (
         end else if (i_sel && i_we) begin
             case (i_addr)
                 CTRL:   reg_ctrl   <= i_wdata;
-                PERIOD: reg_period <= i_wdata;
+                PERIOD: reg_period <= (i_wdata == 0) ? 32'd1 : i_wdata; // Write default value if input is 0
                 DUTY:   reg_duty   <= i_wdata;
             endcase
         end
     end
 
     // --- Read Logic ---
+    reg [31:0] effective_duty; // Define Effective duty cycle 
     always @(*) begin
+        effective_duty = (reg_duty > reg_period) ? reg_period : reg_duty;
         if (i_sel && !i_we) begin
             case (i_addr)
                 CTRL:   o_rdata = reg_ctrl;
                 PERIOD: o_rdata = reg_period;
-                DUTY:   o_rdata = reg_duty;
+                DUTY:   o_rdata = effective_duty;
                 STATUS: o_rdata = {counter[15:0], 15'b0, ctrl_en}; // Bit 0: RUNNING, Bits [31:16]: CURRENT COUNTER
                 default: o_rdata = 32'b0;
             endcase
@@ -64,7 +66,7 @@ module pwm_ip (
         if (!resetn) begin
             counter <= 32'b0;
             pwm_out <= 1'b0;
-        end else if (ctrl_en) begin
+        end else if (ctrl_en && !i_we) begin
             // Counter Management
             if (counter >= (reg_period - 1)) begin
                 counter <= 32'b0;
@@ -74,13 +76,13 @@ module pwm_ip (
 
             // Output Generation
             // (Apply Polarity: if POL=1, invert the result)
-            if (counter < reg_duty) begin
+            if (counter < effective_duty) begin
                 pwm_out <= ctrl_pol ? 1'b0 : 1'b1;
             end else begin
                 pwm_out <= ctrl_pol ? 1'b1 : 1'b0;
             end
         end else begin
-            // When Disabled: Force inactive level
+            // When PWM Disabled or Write Enabled: Force inactive level
             counter <= 32'b0;
             pwm_out <= ctrl_pol ? 1'b1 : 1'b0; 
         end

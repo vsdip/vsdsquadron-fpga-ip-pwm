@@ -38,7 +38,7 @@ module pwm_ip (
         end else if (i_sel && i_we) begin
             case (i_addr)
                 CTRL:   reg_ctrl   <= i_wdata;
-                PERIOD: reg_period <= (i_wdata == 0) ? 32'd1 : i_wdata; // Write default value if input is 0
+                PERIOD: reg_period <= (i_wdata < 32'b1) ? 32'd1 : i_wdata; // Write default value if input is 0 or negative 
                 DUTY:   reg_duty   <= i_wdata;
             endcase
         end
